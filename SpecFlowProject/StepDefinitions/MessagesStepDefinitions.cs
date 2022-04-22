@@ -14,6 +14,8 @@ namespace SpecFlowProject.StepDefinitions {
         private IWebElement? buttonCreate;
         private IWebElement? succesInfoLabel;
         private IWebElement? messageNumberLabel;
+        private IWebElement? errorMessage;
+        private IWebElement? errorBanner;
 
         [BeforeScenario]
         public void Before() {
@@ -58,6 +60,20 @@ namespace SpecFlowProject.StepDefinitions {
             Assert.AreEqual("The message has been saved", succesInfoLabel.Text);
             messageNumberLabel = driver.FindElement(By.Id("messageNumber"));
             Assert.AreEqual("You have 1 messages", messageNumberLabel.Text);
+        }
+        [Given(@"I forgotten to enter the email")]
+
+        public void GivenIForgottenToEnterTheEmail() {
+            tbEmail = driver.FindElement(By.Id("Email"));
+            tbEmail.Clear();
+        }
+
+        [Then(@"The error message should be displayed")]
+        public void ThenTheErrorMessageShouldBeDisplayed() {
+            errorMessage = driver.FindElement(By.ClassName("field-validation-error"));
+            Assert.AreEqual("Email is Required", errorMessage.Text);
+            errorBanner = driver.FindElement(By.ClassName("validation-summary-errors"));
+            Assert.AreEqual("Email is Required", errorBanner.Text);
         }
 
         [AfterScenario]

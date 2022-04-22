@@ -23,7 +23,6 @@ namespace SpecFlowProject.StepDefinitions {
 
         [Given(@"I Have opened the website")]
         public void GivenIHaveOpenedTheWebsite() {
-            driver = new ChromeDriver();
             driver.Navigate().GoToUrl("https://certicon-testing.azurewebsites.net/");
             linkMessages = driver.FindElement(By.LinkText("Messages"));
             linkMessages.Click();
